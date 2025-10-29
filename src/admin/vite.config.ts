@@ -8,5 +8,11 @@ export default (config: UserConfig) => {
         '@': '/src',
       },
     },
+    server: {
+      allowedHosts: [
+        'okiddyapi.pangu.datalab', // Replace with your actual hostname
+        'okiddyapi.pangu.datalab:1337', // Replace with your actual hostname
+    ],
+  },
   });
 };
