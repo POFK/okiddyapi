@@ -1,9 +1,6 @@
 // ./config/plugins.ts`
-const { env } = require("@strapi/utils");
 
-const clientUrl = env("CLIENT_URL");
-
-export default () => ({
+export default ({ env }) => ({
   // see https://market.strapi.io/plugins/strapi-plugin-preview-button
   "preview-button": {
     config: {
@@ -11,7 +8,7 @@ export default () => ({
         {
           uid: "api::homepage.homepage",
           draft: {
-            url: `${clientUrl}/preview`,
+            url: `${env("CLIENT_URL")}/preview`,
             query: {
               type: "home",
               id: "{documentId}",
@@ -21,13 +18,13 @@ export default () => ({
             //alwaysVisible: true,
           },
           published: {
-            url: clientUrl,
+            url: env("CLIENT_URL"),
           },
         },
         {
           uid: "api::post.post",
           draft: {
-            url: `${clientUrl}/preview`,
+            url: `${env("CLIENT_URL")}/preview`,
             query: {
               type: "post",
               id: "{documentId}",
@@ -37,7 +34,7 @@ export default () => ({
             //alwaysVisible: true,
           },
           published: {
-            url: `${clientUrl}/post/{documentId}`,
+            url: `${env("CLIENT_URL")}/post/{documentId}`,
             openTarget: "_blank",
           },
         },
