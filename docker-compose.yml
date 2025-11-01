@@ -1,21 +1,74 @@
 services:
   postgres:
-    image: postgres:17-alpine  # 您可以选择合适的 Postgres 版本, 14 是一个稳定且常用的版本
+    image: postgres:17-alpine
     container_name: strapi-postgres
     restart: unless-stopped
+    env_file: .env
     environment:
-      POSTGRES_USER: strapiuser      # 数据库用户名
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: strapidb          # 数据库名称
+      POSTGRES_USER: ${DATABASE_USERNAME:?not_found_error}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?not_found_error}
+      POSTGRES_DB: ${DATABASE_NAME:?not_found_error}
     volumes:
       - strapi-data:/var/lib/postgresql/data
-    ports:
-      - "55543:5432" # 将容器的 5432 端口映射到主机的 5432 端口
+    #ports:
+    #  - "55543:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U strapiuser -d strapidb"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  strapi:
+    container_name: strapi-app
+    # 使用 build context，假设项目根目录中存在一个 Dockerfile
+    # Strapi 容器将由这个 Dockerfile 构建
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: strapi-app:latest # 可选，为构建的镜像命名
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Strapi 环境配置 (生产模式)
+      NODE_ENV: ${NODE_ENV:-production}
+      # 强制 Strapi 监听所有网络接口 (0.0.0.0)
+      HOST: ${HOST:-0.0.0.0}
+      PORT: ${PORT:-1337}
+
+      DATABASE_CLIENT: postgres
+      # 注意：HOST 使用服务名 'postgres'，Docker Compose 网络会自动解析
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+
+      # *** 安全密钥 - 生产环境中请务必使用生成工具创建强随机密钥 ***
+      # 建议使用 `openssl rand -base64 32` 等命令生成
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+
+      # settings for plugins
+      # plugin: preview
+      CLIENT_URL: ${CLIENT_URL:?not_found_error}
+      # plugin: cloudflare R2 image uploads
+      CF_ACCESS_KEY_ID: ${CF_ACCESS_KEY_ID:?not_found_error}
+      CF_ACCESS_SECRET: ${CF_ACCESS_KEY_SECRET:?not_found_error}
+      CF_ENDPOINT: ${CF_ENDPOINT:?not_found_error}
+      CF_BUCKET: ${CF_BUCKET:?not_found_error}
+      CF_PUBLIC_ACCESS_URL: ${CF_PUBLIC_ACCESS_URL:?not_found_error}
+
+    # 映射 Strapi 端口到宿主机的 1337 端口
+    ports:
+      - "1337:1337"
+
+    # 依赖数据库服务。确保 postgres 容器启动并健康运行后，strapi 才尝试启动
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   strapi-data:
