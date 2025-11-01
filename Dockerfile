@@ -1,7 +1,8 @@
 # Creating multi-stage build for production
 FROM node:22-alpine AS build
 
-ENV HTTPS_PROXY=http://10.0.0.11:7890
+# remove it if no proxy is needed
+# ENV HTTPS_PROXY=http://10.0.0.11:7890
 
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
 ARG NODE_ENV=production
@@ -18,6 +19,10 @@ RUN npm run build
 
 # Creating final production image
 FROM node:22-alpine
+
+# remove it if no proxy is needed
+# ENV HTTPS_PROXY=http://10.0.0.11:7890
+
 RUN apk add --no-cache vips-dev
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}

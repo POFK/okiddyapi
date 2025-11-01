@@ -56,7 +56,7 @@ services:
       CLIENT_URL: ${CLIENT_URL:?not_found_error}
       # plugin: cloudflare R2 image uploads
       CF_ACCESS_KEY_ID: ${CF_ACCESS_KEY_ID:?not_found_error}
-      CF_ACCESS_SECRET: ${CF_ACCESS_KEY_SECRET:?not_found_error}
+      CF_ACCESS_SECRET: ${CF_ACCESS_SECRET:?not_found_error}
       CF_ENDPOINT: ${CF_ENDPOINT:?not_found_error}
       CF_BUCKET: ${CF_BUCKET:?not_found_error}
       CF_PUBLIC_ACCESS_URL: ${CF_PUBLIC_ACCESS_URL:?not_found_error}
