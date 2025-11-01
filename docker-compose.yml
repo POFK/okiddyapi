@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: strapi-app:latest # 可选，为构建的镜像命名
+    image: ccr.ccs.tencentyun.com/datalab/strapi:latest
     restart: unless-stopped
     env_file: .env
     environment:
@@ -69,6 +69,15 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  # docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token xxx
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: strapi-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN}
+    depends_on:
+      - strapi
 
 volumes:
   strapi-data:
