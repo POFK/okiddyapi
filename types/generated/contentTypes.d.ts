@@ -475,37 +475,24 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    enableHeroSection: Schema.Attribute.Boolean &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<true>;
-    featuredPostsCount: Schema.Attribute.Integer &
+    contentSection: Schema.Attribute.Component<
+      'section.homepage-content-section',
+      true
+    > &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 12;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<3>;
-    heroSubtitle: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
       }>;
-    heroTitle: Schema.Attribute.String &
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heroSection: Schema.Attribute.Component<
+      'section.homepage-hero-section',
+      true
+    > &
+      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -615,8 +602,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
       }> &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
-      }> &
-      Schema.Attribute.DefaultTo<'The description for search engines, (<160 characters)'>;
+      }>;
     seoId: Schema.Attribute.UID<'seoTitle'> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -633,16 +619,14 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
       }> &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
-      }> &
-      Schema.Attribute.DefaultTo<'The title for search engines (<60 characters)'>;
+      }>;
     summary: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.DefaultTo<'Post summary (for users)'>;
+      }>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -650,9 +634,10 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.DefaultTo<'Post title (for users)'>;
-    type: Schema.Attribute.Enumeration<['eat', 'play', 'learn', 'ourdoor']> &
+      }>;
+    type: Schema.Attribute.Enumeration<
+      ['eat', 'play', 'learn', 'art', 'ourdoor']
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;

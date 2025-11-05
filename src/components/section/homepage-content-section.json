@@ -1,0 +1,79 @@
+{
+  "collectionName": "components_section_homepage_content_sections",
+  "info": {
+    "displayName": "Homepage Content Section",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "enable": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "sectionName": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "size": {
+      "type": "integer",
+      "default": 4,
+      "min": 3,
+      "max": 9
+    },
+    "enableNavbar": {
+      "type": "boolean",
+      "default": false
+    },
+    "navbarName": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "enableNavbar"
+            },
+            true
+          ]
+        }
+      },
+      "required": false,
+      "unique": true
+    },
+    "icon": {
+      "type": "text",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "enableNavbar"
+            },
+            true
+          ]
+        }
+      },
+      "required": false
+    },
+    "enableHighlight": {
+      "type": "boolean",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "enableNavbar"
+            },
+            true
+          ]
+        }
+      },
+      "default": false
+    }
+  },
+  "config": {}
+}

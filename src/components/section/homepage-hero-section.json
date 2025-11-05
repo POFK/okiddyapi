@@ -1,0 +1,76 @@
+{
+  "collectionName": "components_section_homepage_hero_sections",
+  "info": {
+    "displayName": "Homepage hero section",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "enable": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 60,
+      "required": true
+    },
+    "subTitle": {
+      "type": "string",
+      "maxLength": 60,
+      "required": false
+    },
+    "linkToPost": {
+      "type": "boolean",
+      "default": false
+    },
+    "linkUrl": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "linkToPost"
+            },
+            false
+          ]
+        }
+      }
+    },
+    "heroImage": {
+      "type": "media",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "linkToPost"
+            },
+            false
+          ]
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "post": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::post.post",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "linkToPost"
+            },
+            true
+          ]
+        }
+      }
+    }
+  },
+  "config": {}
+}

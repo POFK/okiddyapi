@@ -35,42 +35,27 @@
       "maxLength": 160,
       "required": true
     },
-    "heroTitle": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "heroSubtitle": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "enableHeroSection": {
-      "type": "boolean",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "required": false,
-      "default": true
-    },
-    "featuredPostsCount": {
-      "type": "integer",
+    "heroSection": {
+      "type": "component",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true,
-      "default": 3,
-      "max": 12
+      "component": "section.homepage-hero-section",
+      "repeatable": true,
+      "required": true
+    },
+    "contentSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "section.homepage-content-section",
+      "repeatable": true,
+      "required": true
     }
   }
 }

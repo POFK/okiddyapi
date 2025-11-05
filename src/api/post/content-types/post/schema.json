@@ -22,7 +22,6 @@
           "localized": true
         }
       },
-      "default": "Post title (for users)",
       "required": true,
       "unique": false
     },
@@ -33,7 +32,6 @@
           "localized": true
         }
       },
-      "default": "Post summary (for users)",
       "required": true,
       "unique": false
     },
@@ -44,7 +42,6 @@
           "localized": false
         }
       },
-      "default": "The title for search engines (<60 characters)",
       "maxLength": 60,
       "required": true,
       "unique": false
@@ -56,7 +53,6 @@
           "localized": false
         }
       },
-      "default": "The description for search engines, (<160 characters)",
       "maxLength": 160,
       "required": true
     },
@@ -90,6 +86,7 @@
         "eat",
         "play",
         "learn",
+        "art",
         "ourdoor"
       ]
     },
