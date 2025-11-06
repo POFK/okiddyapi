@@ -25,7 +25,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ccr.ccs.tencentyun.com/datalab/strapi:latest # 替换为您的仓库地址
+          images: ccr.ccs.tencentyun.com/datalab/strapi # 替换为您的仓库地址
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern=v{{version}}
