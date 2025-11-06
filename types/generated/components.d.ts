@@ -11,8 +11,9 @@ export interface SectionHomepageContentSection extends Struct.ComponentSchema {
     enable: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     enableHighlight: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
+    enableMobile: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     enableNavbar: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    icon: Schema.Attribute.Text;
+    icon: Schema.Attribute.String & Schema.Attribute.Unique;
     navbarName: Schema.Attribute.String & Schema.Attribute.Unique;
     sectionName: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -26,6 +27,7 @@ export interface SectionHomepageContentSection extends Struct.ComponentSchema {
         number
       > &
       Schema.Attribute.DefaultTo<4>;
+    url: Schema.Attribute.String;
   };
 }
 

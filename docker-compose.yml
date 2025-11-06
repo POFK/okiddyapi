@@ -10,8 +10,8 @@ services:
       POSTGRES_DB: ${DATABASE_NAME:?not_found_error}
     volumes:
       - strapi-data:/var/lib/postgresql/data
-    #ports:
-    #  - "55543:5432"
+    ports:
+      - "55543:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U strapiuser -d strapidb"]
       interval: 10s
@@ -64,20 +64,19 @@ services:
     # 映射 Strapi 端口到宿主机的 1337 端口
     ports:
       - "1337:1337"
-
     # 依赖数据库服务。确保 postgres 容器启动并健康运行后，strapi 才尝试启动
     depends_on:
       postgres:
         condition: service_healthy
 
-  # docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token xxx
-  tunnel:
-    image: cloudflare/cloudflared:latest
-    container_name: strapi-tunnel
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN}
-    depends_on:
-      - strapi
+# # docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token xxx
+# tunnel:
+#   image: cloudflare/cloudflared:latest
+#   container_name: strapi-tunnel
+#   restart: unless-stopped
+#   command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN}
+#   depends_on:
+#     - strapi
 
 volumes:
   strapi-data:

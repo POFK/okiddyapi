@@ -47,18 +47,19 @@
       "unique": true
     },
     "icon": {
-      "type": "text",
+      "type": "string",
       "conditions": {
         "visible": {
           "==": [
             {
-              "var": "enableNavbar"
+              "var": "enableMobile"
             },
             true
           ]
         }
       },
-      "required": false
+      "required": false,
+      "unique": true
     },
     "enableHighlight": {
       "type": "boolean",
@@ -73,6 +74,33 @@
         }
       },
       "default": false
+    },
+    "enableMobile": {
+      "type": "boolean",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "enableNavbar"
+            },
+            true
+          ]
+        }
+      },
+      "default": false
+    },
+    "url": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "enableNavbar"
+            },
+            true
+          ]
+        }
+      }
     }
   },
   "config": {}
