@@ -38,7 +38,7 @@ pkgs.buildNpmPackage {
     chmod +x $exe
     echo "
     #!/usr/bin/env ${pkgs.bash}/bin/bash
-    cd ${lib}
+    cd $lib
     exec ${nodejs}/bin/npm start" > $exe
   '';
 
