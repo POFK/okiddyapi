@@ -35,11 +35,10 @@ pkgs.buildNpmPackage {
     lib="$out/lib/node_modules/${pname}"
     cp -r ./dist $lib
     touch $exe
-    chmod +x $exe
-    echo "
-    #!/usr/bin/env ${pkgs.bash}/bin/bash
+    echo "#!/usr/bin/env ${pkgs.bash}/bin/bash
     cd $lib
     exec ${nodejs}/bin/npm start" > $exe
+    chmod +x $exe
   '';
 
   meta = {
