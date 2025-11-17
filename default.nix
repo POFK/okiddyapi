@@ -37,9 +37,9 @@ pkgs.buildNpmPackage {
     touch $exe
     chmod +x $exe
     echo "
-        #!/usr/bin/env bash
-        cd $lib
-        ${nodejs}/bin/npm run start" > $exe
+    #!/usr/bin/env ${pkgs.bash}/bin/bash
+    cd ${lib}
+    exec ${nodejs}/bin/npm start" > $exe
   '';
 
   meta = {
