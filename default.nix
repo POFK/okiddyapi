@@ -1,39 +1,54 @@
 {
-  config,
   lib,
   pkgs,
-  nodejs-version ? 22,
-  pname ? "okiddyapi",
-  version ? "0.0.0",
-  npmDepsHash ? "",
+  config,
+  dream2nix,
+  nodejsVersion ? 22,
   ...
 }:
 let
-  tag = "v${version}";
-  nodejs = (pkgs."nodejs_${toString nodejs-version}");
-  buildInputs = [
-    nodejs
-    pkgs.nodePackages_latest.pnpm
-  ];
-  nativeBuildInputs = buildInputs;
+  tag = "v${config.version}";
+  nodejs = (pkgs."nodejs_${toString nodejsVersion}");
 in
-pkgs.buildNpmPackage {
-  inherit
-    pname
-    version
-    npmDepsHash
-    buildInputs
-    nativeBuildInputs
-    ;
+{
+  imports = [
+    dream2nix.modules.dream2nix.nodejs-package-lock-v3
+    dream2nix.modules.dream2nix.nodejs-granular-v3
+  ];
 
-  src = ./.;
-  npmLockfile = "package-lock.json"; # 或者 "package-lock.json" / "pnpm-lock.yaml"
+  mkDerivation.src = lib.cleanSource ./.;
 
-  postInstall = ''
+  deps =
+    { nixpkgs, ... }:
+    {
+      inherit (nixpkgs) stdenv fetchFromGitHub;
+      nodejs = nodejs;
+      # Strapi 的 sharp 依赖通常需要这些系统库
+      vips = nixpkgs.vips;
+      pkg-config = nixpkgs.pkg-config;
+      python3 = nixpkgs.python3;
+      gcc = nixpkgs.gcc;
+    };
+
+  mkDerivation = {
+    nativeBuildInputs = [
+      config.deps.pkg-config
+      config.deps.python3
+    ];
+    buildInputs = [
+      config.deps.vips
+      config.deps.gcc
+    ];
+  };
+
+  nodejs-package-lock-v3 = {
+    packageLockFile = "${config.mkDerivation.src}/package-lock.json";
+  };
+
+  mkDerivation.postInstall = ''
     mkdir -p $out/bin
-    exe="$out/bin/${pname}"
-    lib="$out/lib/node_modules/${pname}"
-    cp -r ./dist $lib
+    exe="$out/bin/${config.name}"
+    lib="$out/lib/node_modules/${config.name}"
     touch $exe
     echo "#!/usr/bin/env ${pkgs.bash}/bin/bash
     cd $lib
@@ -41,12 +56,12 @@ pkgs.buildNpmPackage {
     chmod +x $exe
   '';
 
-  meta = {
+  mkDerivation.meta = {
     description = "A strapi based api backend for my website";
-    changelog = "https://github.com/POFK/okiddyapi/releases/tag/${tag}";
     homepage = "https://github.com/POFK/okiddyapi";
     license = lib.licenses.mit;
-    maintainers = "txmao";
+    maintainers = [ "txmao" ];
     platforms = lib.platforms.all;
   };
+
 }

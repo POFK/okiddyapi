@@ -28,6 +28,15 @@
     "strapi-provider-cloudflare-r2": "^0.3.0",
     "styled-components": "^6.0.0"
   },
+  "overrides": {
+    "cli-table3": {
+      "string-width": "4.2.3"
+    },
+    "string-width": "4.2.3",
+    "wrap-ansi": {
+        "string-width": "4.2.3"
+    }
+  },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
