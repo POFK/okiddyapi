@@ -85,7 +85,7 @@
       "type": "datetime",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
       }
     },

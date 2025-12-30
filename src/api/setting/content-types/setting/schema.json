@@ -40,6 +40,13 @@
     },
     "footerCopyright": {
       "type": "string"
+    },
+    "aboutPage": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultMarkdown"
+      }
     }
   }
 }

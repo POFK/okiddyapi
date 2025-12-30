@@ -582,7 +582,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     publishDate: Schema.Attribute.DateTime &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: false;
+          localized: true;
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
@@ -653,6 +653,13 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    aboutPage: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultMarkdown';
+        }
+      >;
     contactEmail: Schema.Attribute.Email;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
