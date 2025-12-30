@@ -54,6 +54,7 @@ services:
       # settings for plugins
       # plugin: preview
       CLIENT_URL: ${CLIENT_URL:?not_found_error}
+      PREVIEW_CLIENT_URL: ${PREVIEW_CLIENT_URL:?not_found_error}
       # plugin: cloudflare R2 image uploads
       CF_ACCESS_KEY_ID: ${CF_ACCESS_KEY_ID:?not_found_error}
       CF_ACCESS_SECRET: ${CF_ACCESS_SECRET:?not_found_error}
@@ -69,14 +70,14 @@ services:
       postgres:
         condition: service_healthy
 
-  # docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token xxx
-  tunnel:
-    image: cloudflare/cloudflared:latest
-    container_name: strapi-tunnel
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN}
-    depends_on:
-      - strapi
+# # docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token xxx
+# tunnel:
+#   image: cloudflare/cloudflared:latest
+#   container_name: strapi-tunnel
+#   restart: unless-stopped
+#   command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN}
+#   depends_on:
+#     - strapi
 
 volumes:
   strapi-data:

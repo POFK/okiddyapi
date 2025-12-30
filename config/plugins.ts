@@ -8,11 +8,11 @@ export default ({ env }) => ({
         {
           uid: "api::homepage.homepage",
           draft: {
-            url: `${env("CLIENT_URL")}/preview`,
-            query: {
-              type: "home",
-              id: "{documentId}",
-            },
+            url: `${env("PREVIEW_CLIENT_URL")}`,
+            //query: {
+            //  type: "home",
+            //  id: "{documentId}",
+            //},
             openTarget: "_blank",
             copy: false,
             //alwaysVisible: true,
@@ -24,11 +24,12 @@ export default ({ env }) => ({
         {
           uid: "api::post.post",
           draft: {
-            url: `${env("CLIENT_URL")}/preview`,
-            query: {
-              type: "post",
-              id: "{documentId}",
-            },
+            url: `${env("PREVIEW_CLIENT_URL")}/post/{documentId}`,
+            //url: `${env("PREVIEW_CLIENT_URL")}/preview`,
+            //query: {
+            //  type: "post",
+            //  id: "{documentId}",
+            //},
             openTarget: "_blank",
             copy: false,
             //alwaysVisible: true,
