@@ -650,7 +650,7 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
     singularName: 'setting';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   pluginOptions: {
     i18n: {

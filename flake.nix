@@ -21,7 +21,7 @@
       let
         nodejsVersion = 20;
         pname = "okiddyapi";
-        version = "0.1.3";
+        version = "0.1.4";
         pkgs = nixpkgs.legacyPackages.${system};
         lib = pkgs.lib;
         strapiApp = dream2nix.lib.evalModules {
