@@ -86,6 +86,14 @@
       "options": {
         "preset": "defaultMarkdown"
       }
+    },
+    "websiteMetadata": {
+      "type": "json",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
