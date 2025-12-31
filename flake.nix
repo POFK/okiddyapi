@@ -19,7 +19,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        nodejsVersion = 22;
+        nodejsVersion = 20;
         pname = "okiddyapi";
         version = "0.1.3";
         pkgs = nixpkgs.legacyPackages.${system};

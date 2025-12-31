@@ -3,7 +3,7 @@
   pkgs,
   config,
   dream2nix,
-  nodejsVersion ? 22,
+  nodejsVersion ? 20,
   ...
 }:
 let
