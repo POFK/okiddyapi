@@ -492,7 +492,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'section.homepage-hero-section',
       true
     > &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

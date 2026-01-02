@@ -44,7 +44,7 @@
       },
       "component": "section.homepage-hero-section",
       "repeatable": true,
-      "required": true
+      "required": false
     },
     "contentSection": {
       "type": "component",
