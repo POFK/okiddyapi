@@ -8,7 +8,7 @@ export default ({ env }) => ({
         {
           uid: "api::homepage.homepage",
           draft: {
-            url: `${env("PREVIEW_CLIENT_URL")}`,
+            url: `${env("PREVIEW_CLIENT_URL")}/{locale}`,
             //query: {
             //  type: "home",
             //  id: "{documentId}",
@@ -18,24 +18,25 @@ export default ({ env }) => ({
             //alwaysVisible: true,
           },
           published: {
-            url: env("CLIENT_URL"),
+            url: `${env("CLIENT_URL")}/{locale}`,
           },
         },
         {
           uid: "api::post.post",
           draft: {
-            url: `${env("PREVIEW_CLIENT_URL")}/post/{documentId}`,
+            url: `${env("PREVIEW_CLIENT_URL")}/{locale}/post/{documentId}`,
             //url: `${env("PREVIEW_CLIENT_URL")}/preview`,
-            //query: {
-            //  type: "post",
-            //  id: "{documentId}",
-            //},
+            //            query: {
+            //              type: "post",
+            //              locale: "{locale}",
+            //              slug: "{slug}",
+            //            },
             openTarget: "_blank",
             copy: false,
             //alwaysVisible: true,
           },
           published: {
-            url: `${env("CLIENT_URL")}/post/{documentId}`,
+            url: `${env("CLIENT_URL")}/{locale}/post/{documentId}`,
             openTarget: "_blank",
           },
         },
