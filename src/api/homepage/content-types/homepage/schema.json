@@ -45,17 +45,6 @@
       "component": "section.homepage-hero-section",
       "repeatable": true,
       "required": false
-    },
-    "contentSection": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "section.homepage-content-section",
-      "repeatable": true,
-      "required": true
     }
   }
 }
