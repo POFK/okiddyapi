@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://schema.buildwithfern.dev/generators-yml.json
+api:
+  specs:
+    - openapi: ../spec/openapi.yaml
+default-group: local
+groups:
+  local:
+    generators:
+      - name: fern-typescript-sdk
+        github:
+          repository: POFK/nextgroup_ts
+        version: 3.44.1
+      - name: fern-python-sdk
+        version: 4.49.0
+        github:
+          repository: POFK/nextgroup_py
+      - name: fern-go-sdk
+        version: 1.23.1
+        github:
+          repository: POFK/nextgroup_go
+        config:
+          module:
+            path: sdk
+  postman:
+    generators:
+      - name: fern-postman
+        version: 0.5.0
+        output:
+          location: local-file-system
+          path: ../postman
+  rust-sdk:
+    generators:
+      - name: fern-rust-sdk
+        version: 0.16.0
+        output:
+          location: local-file-system
+          path: ../sdks/rust
